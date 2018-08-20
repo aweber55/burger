@@ -1,30 +1,29 @@
 var express = require("express");
-var burger = require("../models/burger.js");
+
 var router = express.Router();
 
-
+var burger = require("../models/burger.js");
 
 
 router.get('/', function (req, res) {
   burger.selectAll(function (data) {
-      var handlebarsObj = {
+      var hbsObject = {
           burgers: data
       };
-      res.render('index', handlebarsObj);
+      res.render('index', hbsObject);
   });
 });
 
 router.post('/api/new', function (req, res) {
-  var name = req.body.burger_name
-  if (name) {
-      burger.create(name, function (data) {
-          res.redirect("/");
+  
+      burger.insertOne(req.body.burger_name, function (data) {
+          res.redirect("/index");
       });
-  };
+  
 });
 router.post('/api/devoured', function(req, res) {
-  let id = req.body.id;
-  burger.update(id, function(data){
+  
+  burger.updateOne(req.params.id, function(data){
       res.json(200);
   });
 });
