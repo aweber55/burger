@@ -3,9 +3,11 @@ var express = require("express");
 var router = express.Router();
 
 var burger = require("../models/burger.js");
+router.get('/', function(req,res) {
+    res.redirect('/index');
+});
 
-
-router.get('/', function (req, res) {
+router.get('/index', function (req, res) {
   burger.selectAll(function (data) {
       var hbsObject = {
           burgers: data
@@ -16,7 +18,7 @@ router.get('/', function (req, res) {
 
 router.post('/api/new', function (req, res) {
   
-      burger.insertOne(req.body.burger_name, function (data) {
+      burger.insertOne([req.body.burger_name], function (data) {
           res.redirect("/index");
       });
   
