@@ -23,7 +23,7 @@ router.post('/api/new', function (req, res) {
       });
   
 });
-router.post('/api/devoured', function(req, res) {
+router.put('/api/devoured', function(req, res) {
   
   burger.updateOne(req.params.id, function(data){
       res.json(200);
